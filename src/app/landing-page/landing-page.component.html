@@ -1,0 +1,55 @@
+
+
+<div class="container">
+    <div class="welcome" *ngIf="!authenticated; else showShop">
+        <div class="flex-middle col-8">
+            <img src="assets/webshop.png" class="img" alt="">
+        </div>
+        <div class="flex-middle">
+            <h2>Welcome to my Web Shop</h2>
+            <p>Here u can create your own web shops and search for other peoples web shops. Click the button below to check some of our best shops.</p>
+            <a routerLink="/stores" routerLinkActive="active" class="btn-border-no-background" style="text-align: center; text-decoration: none;">See shops</a>
+        </div>  
+    </div>
+    <div class="pricing" *ngIf="!authenticated">
+        <div class="columns">
+            <ul class="price">
+                <li class="first">Basic</li>
+                <li>$ 9.99 / month</li>
+                <li>2 Categories</li>
+                <li>10 items</li>
+            </ul>
+        </div>
+        <div class="columns">
+            <ul class="price hot">
+                <li class="first special">Pro</li>
+                <li>$ 24.99 / month</li>
+                <li>10 Categories</li>
+                <li>50 items</li>
+            </ul>
+        </div>
+        <div class="columns">
+            <ul class="price">
+                <li class="first">Premium</li>
+                <li>$ 49.99 / month</li>
+                <li>Unlimited categories</li>
+                <li>Unlimited items</li>
+            </ul>
+        </div>
+    </div>
+    <div class="info-about-pricing" *ngIf="!authenticated">
+        If you have an account and you want to get started with selling, you can log in <a routerLink="/login">here</a> and we will guide u through process of subscribing. If u dont have an account, u can <a routerLink="/register">register</a>. 
+    </div>
+    <ng-template #showShop>
+    
+        <div *ngIf="user?.userType=='regular' || user?.userType=='support'">
+            <app-shop></app-shop>
+        </div>
+        <div *ngIf="user?.userType=='admin'">
+            <app-admin-page></app-admin-page>
+        </div>
+        <div *ngIf="user?.userType=='support'" style="border-top:1px solid #008f8f;border-bottom:1px solid #008f8f;margin-top:25px;margin-bottom:25px;">
+            <app-support-page></app-support-page>
+        </div>
+    </ng-template>
+</div>

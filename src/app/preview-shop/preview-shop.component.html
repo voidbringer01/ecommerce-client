@@ -1,0 +1,39 @@
+    
+    <h1 style="text-align: center;color:#008f8f">Welcome to {{username}}'s shop</h1>
+    <form style="display:flex;flex-direction: row;justify-content: flex-end; align-items: center;">
+        <label style="margin-right:4px;color:#008f8f;font-style: italic;"> Search items in his shop</label>
+        <input type="text" name="search" id="search" [(ngModel)]="query">
+    </form>
+    <div class="loader" *ngIf="!loaded"></div>
+    <div *ngIf="loaded">
+        <div *ngIf="categories.length>0">
+            <div *ngFor="let cat of categories">
+                <h2 style="color:#008f8f;text-align: center;text-transform: capitalize; ">Kategorija - {{cat}}</h2>
+                <div *ngIf="(shopItems | myfilter:{category:cat,itemTitle:query}).length==0" style="text-align: center;font-style: italic;color:#6a6a6a;">
+                    This category doesn't have any items.
+                </div>
+                <div *ngIf="shopItems.length>0">    
+                    <div *ngFor="let shopitem of shopItems | myfilter:{category:cat,itemTitle:query} " class="flex">
+
+                        <div class="flex shop-item">
+                            <img id="myimage" src="{{root_url}}{{shopitem.imageUrl}}" >
+                            <div class="flex column" style="margin-left:15px;">
+                                <div>
+                                    <h3 class="biggest" style="text-decoration: underline; cursor:pointer;" (click)="previewItem(shopitem)">{{shopitem.itemTitle}}</h3>
+                                </div>
+                                <div><span class="opis">{{shopitem.smallDescription}}</span></div>
+                                <div><span class="price">Cena: {{shopitem.price}} </span></div>
+                                <div><span class="small">Na stanju: {{shopitem.suppliesLeft}}</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div *ngIf="categories.length==0">
+            <p style="text-align: center;font-style: italic;color:#6a6a6a;">This store is empty.</p>
+        </div>
+    </div>
+   
+    

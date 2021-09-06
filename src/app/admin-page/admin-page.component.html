@@ -1,0 +1,47 @@
+<div  style="display:none;position:absolute;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.3);top:0;z-index:999;" (click)="outside($event)" id="outside">
+    <div style="width:250px;border-radius:5px;background-color: #fafafa;padding:15px;position: absolute;left:50%;top:50%;transform:translate(-50%,-50%) " class="shadow">
+        
+        <p>Da li stvarno zalite da sklonite ovaj element iz vase korpe?</p>
+        <button class="btn-border" (click)="confirmModal($event,true)">OK</button>
+        <button class="btn-border" (click)="confirmModal($event,false)">Cancel</button>
+    </div>
+</div>
+  
+  <h1 style="text-align: center;color:#008f8f">Applications for job</h1>
+  <div class="loader" *ngIf="!loaded"></div>
+        <div *ngIf="loaded">
+          <div *ngIf="applications?.length>0">
+            <div *ngFor="let application of applications  ;let i = index">
+                <div class="shop-item" style="position: relative;">
+                    <p style="color:#6a6a6a;padding:0;">
+                        <!-- <span [ngClass]="transaction.state=='pending'?'yellow':transaction.state=='shiped'?'green':transaction.state=='delievered'?'blue':'red'">{{transaction?.state}}</span> -->
+                        <span *ngIf="application?.status=='pending'" class="yellow" >pending</span>
+                        <span *ngIf="application?.status=='accepted'" class="green">accepted</span>
+                        <span *ngIf="application?.status=='declined'" class="red">declined</span>
+                        <b>Username: </b> <i>{{application?.username}}</i><br>
+                        CV: {{application?.data}} <br>
+                       
+                    </p>  
+                    <span class="small">Application id: {{application?._id}}</span><br>
+                    <span *ngIf="application?.status=='pending'"  style="cursor:pointer;" class="green" (click)="accept($event,application)">Accept</span>
+                    <span *ngIf="application?.status=='pending'"  style="cursor:pointer;" class="red" (click)="decline($event,application)">Decline</span>
+            
+                    <!-- <h2 style="color:#008f8f;text-align: left;text-transform: capitalize; cursor:pointer; text-decoration: underline;" (click)="visitCategory(cat)">{{cat}}</h2> -->
+                    <!-- <p class="opis" style="color:#008f8f; font-weight: bold;">{{item_counts[categories.indexOf(cat)]}}</p> -->
+                </div>
+            </div>
+            </div>
+            <div *ngIf="applications?.length<=0" style="text-align: center;font-style: italic;color:#6a6a6a;">
+                You dont have any applications..
+            </div>
+        </div>
+      <div class="pagination-container">
+          <div class="pagination">
+              <div id="first" class="pag-item" (click)="navigate($event,'first')">First</div>
+              <div id="previous" class="pag-item" (click)="navigate($event,'previous')">Previous</div>
+              <div id="current" class="pag-item" >{{page_num}}</div>
+              
+              <div id="next" class="pag-item" (click)="navigate($event,'next')">Next</div>
+              <div id="last" class="pag-item" (click)="navigate($event,'last')">Last</div>    
+          </div>
+      </div>

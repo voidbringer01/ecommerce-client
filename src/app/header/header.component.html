@@ -1,0 +1,79 @@
+<header>
+    <nav class="not-mobile">
+        <div class="brand flex-centered-verticaly">
+            <a routerLink="/" routerLinkActive="active">Moj<span class="red">Web</span><span class="green">Shop</span></a>
+        </div>
+        <div class="nav flex-centered-verticaly">
+            <ul>
+                <li><a routerLink="/categories" routerLinkActive="active">Categories</a></li>
+                <li><a routerLink="/stores" routerLinkActive="active">Stores</a></li>
+                <li><a routerLink="/support" routerLinkActive="active">Support  </a></li>
+                <li *ngIf="authenticated"><a routerLink="/my-transactions" routerLinkActive="active">My transactions  </a></li>
+                <li *ngIf="authenticated && user?.subbed"><a routerLink="/my-orders" routerLinkActive="active">My orders  </a></li>
+            </ul>
+            
+        </div>
+       
+        <div class="nav flex-centered-verticaly">
+            <div class="cart" *ngIf="authenticated">
+                <a routerLink="/cart" routerLinkActive="active"><fa-icon [icon]="faShoppingCart" size="lg" [styles]="{'color':'#BFFFFF'}"></fa-icon>
+                    <span *ngIf="!count or count==0" style="margin-left:5px;display:inline-block;color:'#bfffff'; font-style:italic;">empty</span>
+                    <span *ngIf="count>0" style="margin-left:5px;display:inline-block;color:'#bfffff'; font-style:italic;">{{count}} item</span>
+                    </a>
+            </div>
+            <!-- <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+                <input type="text" name="search" id="search" ngModel required #query="ngModel">
+                <input type="submit" value="Search">
+            </form> -->
+           
+            <ul *ngIf="!authenticated;else showLogout">
+                <li><a routerLink="/login" routerLinkActive="active">Login</a></li>
+                <li><a routerLink="/register" routerLinkActive="active">Register</a></li>
+            <!-- {{user.email}} -->
+            </ul>
+            <ng-template #showLogout>
+                <p style="color:#bfffff;margin-left:10px;">
+                    {{user?.username}}
+                </p>
+                <a style="margin-left:15px;CURSOR:POINTER;" (click)="logout()">Logout</a>
+            </ng-template>
+        </div>
+    </nav>
+    <nav class="mobile">
+        <!-- <div class="brand flex-centered-verticaly"> -->
+            <!-- <a routerLink="/" routerLinkActive="active">Moj<span class="red">Web</span><span class="green">Shop</span></a>
+        </div>
+        <a style="cursor: pointer;"><fa-icon [icon]="faBars" size="2x" [styles]="{'color':'#BFFFFF'}"></fa-icon></a> -->
+        <!-- <div id="myTopNav">
+               <a routerLink="/categories" routerLinkActive="active">Categories</a>
+                <a routerLink="/stores" routerLinkActive="active">Stores</a>
+                <a routerLink="/support" routerLinkActive="active">Support  </a>
+                <li *ngIf="authenticated"><a routerLink="/my-transactions" routerLinkActive="active">My transactions  </a></li>
+                <li *ngIf="authenticated && user?.subbed"><a routerLink="/my-orders" routerLinkActive="active">My orders  </a></li>
+        </div> -->
+        <a routerLink="/" routerLinkActive="active">Moj<span class="red">Web</span><span class="green">Shop</span></a>
+        
+        <div class="cart" *ngIf="authenticated">
+            <a routerLink="/cart" routerLinkActive="active"><fa-icon [icon]="faShoppingCart" size="lg" [styles]="{'color':'#BFFFFF'}"></fa-icon>
+                <span *ngIf="!count or count==0" style="margin-left:5px;display:inline-block;color:'#bfffff'; font-style:italic;">empty</span>
+                <span *ngIf="count>0" style="margin-left:5px;display:inline-block;color:'#bfffff'; font-style:italic;">{{count}} item</span>
+                </a>
+        </div>   
+        <div>
+            <a routerLink="/login" routerLinkActive="active" *ngIf="!authenticated" style="padding:15px;display:inline-block">Login</a>
+            <a *ngIf="!authenticated" routerLink="/register" routerLinkActive="active" style="padding:15px;display:inline-block">Register</a>
+            <fa-icon id="asd" [icon]="faBars" size="2x" [styles]="{'color':'#BFFFFF'}" (click)="showNav()"></fa-icon>
+        </div>
+        <ul id="nav">
+            <li><a routerLink="/categories" routerLinkActive="active">Categories</a></li>
+            <li><a routerLink="/stores" routerLinkActive="active">Stores</a></li>
+            <li><a routerLink="/support" routerLinkActive="active">Support  </a></li>
+            <li *ngIf="authenticated"><a routerLink="/my-transactions" routerLinkActive="active">My transactions  </a></li>
+            <li *ngIf="authenticated && user?.subbed"><a routerLink="/my-orders" routerLinkActive="active">My orders  </a></li>
+            <li *ngIf="authenticated" style="color:#bfffff">   {{user?.username}}
+            </li>
+              <li *ngIf="authenticated"> <a style="CURSOR:POINTER;" (click)="logout()">Logout</a>
+            </li>
+        </ul>
+    </nav>
+</header>

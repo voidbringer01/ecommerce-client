@@ -1,0 +1,31 @@
+<div>
+    <form (submit)="apply($event)">
+        <div class="form-header">
+            <h2 style="color:#008f8f;border-bottom:1px solid #dadada;">Apply to work as support!</h2>
+        </div>
+        <p style="line-height: 1.5;margin-left:25px;color:#6a6a6a">To be accepted, u need to have a registered account. <br>Once your application is accepted, you will get needed access.<br> Good luck.</p>
+        <div class="input-control">
+            <label for="itemTitle">Username: </label>
+            <input type="text" name="itemTitle" id="itemTitle" ngModel>
+        </div>
+        <div class="input-control" *ngIf="valid_title.length>0">
+            <label></label>
+            <!-- <input type="text" name="itemTitle" id="itemTitle" ngModel (change)="onChange($event)"> -->
+            <div class="err-text">{{valid_title}}</div>
+        </div>
+
+        
+
+        <div class="input-control">
+            <label for="description">CV: </label>
+            <textarea ngModel name="description" id="description"></textarea>
+        </div>  
+        <div class="input-control" *ngIf="valid_dc.length>0">
+            <label></label>
+            <!-- <input type="text" name="itemTitle" id="itemTitle" ngModel (change)="onChange($event)"> -->
+            <div class="err-text">{{valid_dc}}</div>
+        </div>
+        
+        <input type="submit" value="Apply" class="btn-fill" id="save" style="cursor: pointer;"> 
+    </form>
+</div>

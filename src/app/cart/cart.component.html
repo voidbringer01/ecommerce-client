@@ -1,0 +1,56 @@
+<div  style="display:none;position:absolute;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.3);top:0;z-index:999;" (click)="outside($event)" id="outside">
+    <div style="width:250px;border-radius:5px;background-color: #fafafa;padding:15px;position: absolute;left:50%;top:50%;transform:translate(-50%,-50%) " class="shadow">
+        
+        <p>Da li stvarno zalite da sklonite ovaj element iz vase korpe?</p>
+        <button class="btn-border" (click)="confirmModal($event,true)">OK</button>
+        <button class="btn-border" (click)="confirmModal($event,false)">Cancel</button>
+    </div>
+</div>
+
+<h1 style="text-align: center;color:#008f8f">Your cart</h1>
+    <form style="display:flex;flex-direction: row;justify-content: flex-end; align-items: center;">
+        <!-- <label style="margin-right:4px;color:#008f8f;font-style: italic;"> Search items in your shop</label>
+        <input type="text" name="search" id="search" [(ngModel)]="query"> -->
+    </form>
+    <div *ngIf="shopItems.length>0">
+        <div class="loader" *ngIf="!loaded"></div>
+        <div *ngIf="loaded">
+                <!-- <h2 style="color:#008f8f;text-align: center;text-transform: capitalize; ">asd</h2> -->
+                <div *ngFor="let shopitem of shopItems;let i = index" class="flex">
+                    <div class="flex shop-item" style="position:relative;">
+                        <img *ngIf="shopitem" id="myimage" src="{{root_url}}{{shopitem.imageUrl}}" >    
+                        <div class="flex column" style="margin-left:15px;">
+                            <div>
+                                <h3 class="biggest" style="text-decoration: underline;cursor:pointer;" (click)="previewItem(shopitem)">{{shopitem?.itemTitle}}</h3>
+                            </div>
+                            <div><span class="opis">{{shopitem?.smallDescription}} </span></div>
+                            <div><span class="price">Cena: {{shopitem?.price}} </span></div>
+
+                            <div>
+                                <span class="small">Na stanju: {{shopitem?.suppliesLeft}}</span>
+                                <input type="number" min="0" max={{shopitem?.suppliesLeft}} style="width:40px;margin-left:10px;" class="quantity" value={{shopItemsCount[i]}}>
+                            </div>
+                        </div>
+                        <span style="position:absolute;color:#ca6a6a;top:0px;right:0px;font-weight: bold;font-family: sans-serif;padding:5px;cursor:pointer;font-size:16px;" (click)="deleteItem(shopitem)">X</span>
+                    </div>
+                    
+                </div>
+            </div>
+            <div>
+                <p style="color:#6a6a6a;"><b>Shipping</b>: Posta Srbije</p>
+                <div class="input-control">
+                    <label for="shipping-adress">Shipping address:</label>
+                    <input type="text" name="shipping-adress" id="shipping-adress">
+                </div>
+                <div class="input-control" *ngIf="valid_title.length>0">
+                    <label></label>
+                    <!-- <input type="text" name="itemTitle" id="itemTitle" ngModel (change)="onChange($event)"> -->
+                    <div class="err-text">{{valid_title}}</div>
+                </div>
+                <button class="btn-fill" style="margin-top:3px;" (click)="checkout()">Checkout</button>
+                <div *ngIf="showSuccess" style="background-color:#6aca6a;width:100%;color:#fafafa;padding:10px;text-align: center;margin-top:5px;">Your transaction was successfull, u will be redirected soon!</div>
+            </div>
+    </div>
+    <div *ngIf="shopItems.length==0" style="text-align: center;font-style: italic;color:#6a6a6a;">
+        Cart is empty
+    </div>

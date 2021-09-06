@@ -1,0 +1,49 @@
+<div  style="display:none;position:absolute;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.3);top:0;z-index:999;" (click)="outside($event)" id="outside">
+    <div style="width:250px;border-radius:5px;background-color: #fafafa;padding:15px;position: absolute;left:50%;top:50%;transform:translate(-50%,-50%) " class="shadow">
+        
+        <p>Da li stvarno zalite da sklonite ovaj element iz vase korpe?</p>
+        <button class="btn-border" (click)="confirmModal($event,true)">OK</button>
+        <button class="btn-border" (click)="confirmModal($event,false)">Cancel</button>
+    </div>
+</div>
+  
+  <h1 style="text-align: center;color:#008f8f">Your recent orders</h1>
+  <div class="loader" *ngIf="!loaded"></div>
+        <div *ngIf="loaded">
+          <div *ngIf="transactions.length>0">
+            <div *ngFor="let transaction of transactions  ;let i = index">
+                <div class="shop-item" style="position: relative;">
+                    <div *ngIf="transaction?.state!='canceled' && transaction?.state!='delivered'">
+                        <div  style="position:absolute;color:#ca6a6a;top:-15px;right:-5px;font-weight: bold;font-family: sans-serif;padding:5px;cursor:pointer;font-size:16px;" (click)="cancelTransaction(transaction)">X</div>
+                    </div>
+                    <p style="color:#6a6a6a;padding:0;">
+                        <!-- <span [ngClass]="transaction.state=='pending'?'yellow':transaction.state=='shiped'?'green':transaction.state=='delievered'?'blue':'red'">{{transaction?.state}}</span> -->
+                        <span *ngIf="transaction.state=='pending'" class="yellow" style="cursor:pointer;" (click)="shipItem(transaction)">Set shiped!</span>
+                        <span *ngIf="transaction.state=='shiped'"  class="green" style="cursor:pointer;" (click)="deliverItem(transaction)">Set delivered!</span> 
+                        <span *ngIf="transaction.state=='canceled'"  class="red" >Canceled</span> 
+                        <span *ngIf="transaction.state=='delivered'"  class="blue" >Delivered</span> 
+                    
+                        <b>Item</b> - {{item_names[i]}}, <b>Amount ordered</b> - {{transaction?.amount}}, <b>From seller</b> - {{transaction?.seller}}<br>
+                        
+                    </p>
+            
+                    <span class="small">Transaction id: {{transaction?._id}}</span>
+                    <!-- <h2 style="color:#008f8f;text-align: left;text-transform: capitalize; cursor:pointer; text-decoration: underline;" (click)="visitCategory(cat)">{{cat}}</h2> -->
+                    <!-- <p class="opis" style="color:#008f8f; font-weight: bold;">{{item_counts[categories.indexOf(cat)]}}</p> -->
+                </div>
+            </div>
+            </div>
+            <div *ngIf="transactions.length<=0" style="text-align: center;font-style: italic;color:#6a6a6a;">
+                You dont have any orders..
+            </div>
+        </div>
+      <div class="pagination-container">
+          <div class="pagination">
+              <div id="first" class="pag-item" (click)="navigate($event,'first')">First</div>
+              <div id="previous" class="pag-item" (click)="navigate($event,'previous')">Previous</div>
+              <div id="current" class="pag-item" >{{page_num}}</div>
+              
+              <div id="next" class="pag-item" (click)="navigate($event,'next')">Next</div>
+              <div id="last" class="pag-item" (click)="navigate($event,'last')">Last</div>    
+          </div>
+      </div>

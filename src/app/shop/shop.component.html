@@ -1,0 +1,99 @@
+<div  style="display:none;position:absolute;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.3);top:0;z-index:999" (click)="outside($event)" id="outside">
+    <div style="width:250px;border-radius:5px;background-color: #fafafa;padding:15px;position: absolute;left:50%;top:50%;transform:translate(-50%,-50%) " class="shadow">
+        
+        <p>Da li stvarno zalite da izbrisete ovaj element?</p>
+        <button class="btn-border" (click)="confirmModal($event,true)">OK</button>
+        <button class="btn-border" (click)="confirmModal($event,false)">Cancel</button>
+    </div>
+</div>
+<div *ngIf="user?.subbed" class="nesto">
+    
+    <h1 style="text-align: center;color:#008f8f">This is your shop.</h1>
+    <form style="display:flex;flex-direction: row;justify-content: flex-end; align-items: center;">
+        <label style="margin-right:4px;color:#008f8f;font-style: italic;"> Search items in your shop</label>
+        <input type="text" name="search" id="search" [(ngModel)]="query">
+    </form>
+    <div class="loader" *ngIf="!loaded"></div>
+    <div *ngIf="loaded">
+        <div *ngIf="categories.length==0" style="text-align: center;font-style: italic;color:#6a6a6a;">
+            U dont have any categories yet, create some and get started selling!
+        </div>
+        <div *ngFor="let cat of categories">
+            <h2 style="color:#008f8f;text-align: center;text-transform: capitalize; ">Kategorija - {{cat}}</h2>
+            <div *ngIf="(shopItems | myfilter:{category:cat,itemTitle:query}).length==0" style="text-align: center;font-style: italic;color:#6a6a6a;">
+                This category doesn't have any items. 
+            </div>
+            <div *ngFor="let shopitem of shopItems | myfilter:{category:cat,itemTitle:query} " class="flex">
+                
+                <div class="flex shop-item">
+                    <img id="myimage" src="{{root_url}}{{shopitem.imageUrl}}" >
+                    <div class="flex column" style="margin-left:15px;">
+                        <div>
+                            <h3 class="biggest">{{shopitem.itemTitle}}</h3>
+                        </div>
+                        <div><span class="opis">{{shopitem.smallDescription}}</span></div>
+                        <div><span class="price">Cena: {{shopitem.price}} </span></div>
+                        <div><span class="small">Na stanju: {{shopitem.suppliesLeft}}</span></div>
+                        <div class="edit"><a (click)="previewItem(shopitem)">preview</a><a (click)="deleteItem(shopitem)">delete</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="float-right margin-top-low">
+        <button class="btn-border" (click)="createNewItem()">Add new item</button>
+    </div>
+    <div class="float-right margin-top-low">
+        <button class="btn-border" (click)="createNewCategory()">Add new category</button>
+    </div>
+    <div class="margin-top-low column">
+        You currently have {{shopItems.length}}/{{maxItems}} items on your shop in {{categories.length}}/{{maxCats}} categories. To add a new item to sell or add a new category, click the buttons here.
+    </div>
+    
+</div>
+
+<div *ngIf="!user?.subbed">
+    <div>
+        <h2 style="color:#008f8f;text-align: center;text-transform: capitalize; ">Chose plan</h2>
+        <p style="color:#3a3a3a;text-align: center;">Before u can continue u have to chose plan.</p> 
+    </div>
+    <div class="pricing">
+        <div class="columns">
+            <ul class="price2">
+                <li class="first">Basic</li>
+                <li>$ 9.99 / month</li>
+                <li>2 Categories</li>
+                <li>10 items</li>
+            </ul>
+        </div>
+        <div class="columns">
+            <ul class="price2 hot">
+                <li class="first special">Pro</li>
+                <li>$ 24.99 / month</li>
+                <li>10 Categories</li>
+                <li>50 items</li>
+            </ul>
+        </div>
+        <div class="columns">
+            <ul class="price2">
+                <li class="first">Premium</li>
+                <li>$ 49.99 / month</li>
+                <li>Unlimited categories</li>
+                <li>Unlimited items</li>
+            </ul>
+        </div>
+    </div>
+    <form #myForm="ngForm" (submit)="subscribe(myForm)">
+        <label for="basic" style="padding:4px 2px; display:inline-block;color:#008f8f;">
+            <input type="radio" name="plan" value="basic" id="basic" style="margin-right:4px;" ngModel > Basic
+        </label> <br>
+        <label for="pro" style="padding:4px 2px; display:inline-block;color:#008f8f;">
+            <input type="radio" name="plan" value="pro" id="pro" style="margin-right:4px;" ngModel> Pro
+        </label> <br>
+        <label for="Premium" style="padding:4px 2px; display:inline-block;color:#008f8f;">
+            <input type="radio" name="plan" value="Premium" id="Premium" style="margin-right:4px;" ngModel> Premium
+        </label> <br>
+        <input type="submit" value="Subscribe">
+        <p *ngIf="izaberi" style="margin-left:3px;background-color:#FEEFB3;padding:10px;color:#9F6000;">{{izaberi}}</p>
+    </form>
+</div>

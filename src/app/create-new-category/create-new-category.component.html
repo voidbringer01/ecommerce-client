@@ -1,0 +1,32 @@
+<div>
+    <form>
+        <div class="form-header">
+            <h2 style="color:#008f8f;border-bottom:1px solid #dadada;">Izaberi novu kategoriju</h2>
+        </div>
+        <div>
+            <p style="color:#6a6a6a;">Trenutno imate {{categories.length}} kategorija, mozete napraviti maksimalno {{catMax}}.</p>
+        </div>
+        <div>
+            <p style="color:#6a6a6a">Mozete da kreirate vasu kategoriju ili izaberete neku od onih koje vec postoje. </p>
+        </div>
+        <div class="input-control">
+            <label for="categoryName">Naziv kategorije: </label>
+            <input type="text" name="categoryName" id="categoryName" [(ngModel)]="katName" (keyup)="pretrazi()" style="width:200px;">
+        </div>
+        <div class="input-control" *ngIf="valid_title.length>0">
+            <label></label>
+            <!-- <input type="text" name="itemTitle" id="itemTitle" ngModel (change)="onChange($event)"> -->
+            <div class="err-text">{{valid_title}}</div>
+        </div>
+
+        <div *ngIf="katName && searchCategories.length>0" style="padding-bottom:20px;   ">
+            <p style="color:#6a6a6a">Ovo su neke od kategorija koje mozete uzeti.</p>
+            <div *ngFor="let kategori of searchCategories">
+                <div style="border-bottom:1px solid #008f8f;">
+                    <p style="color:#008f8f;margin:5px 8px;display:block;">{{kategori}}</p>
+                </div>
+            </div>
+        </div>
+        <input type="submit" value="Dodaj" class="btn-fill" id="save" (click)="submitForm()"> <a class="btn-no-background" style="cursor: pointer;" (click)="goBack()">Cancel</a>
+    </form>
+</div>

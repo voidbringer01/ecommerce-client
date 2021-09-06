@@ -1,0 +1,46 @@
+
+  <h1 style="text-align: center;color:#008f8f">Search different shops</h1>
+  <form style="display:flex;flex-direction: row;justify-content: flex-end; align-items: center;">
+      <label style="margin-right:4px;color:#008f8f;font-style: italic;"> Filter stores</label>
+      <input type="text" name="search" id="search" [(ngModel)]="query">
+  </form>
+  <div class="loader" *ngIf="!loaded"></div>
+      <div *ngIf="loaded">
+          <div *ngFor="let cat of stores | storefilter:{itemTitle:query} ;let i = index " >
+              <div class="flex shop-item" style="padding-bottom:15px;position:relative">
+                
+                  <h2 style="color:#008f8f;text-align: left;text-transform: capitalize; cursor:pointer; text-decoration: underline;" (click)="visitStore(cat)">{{cat.userName}}'s store</h2>
+                  <div *ngIf="cat.categories.length>0">
+                    <div *ngFor="let imenaKat of cat.categories; let j = index" style=" position: absolute; bottom:7px;"[style.left]="distances[j]"  >
+                            <div style="border-radius:3px; color:#fafafa;padding:2px; padding-left:4px;padding-right:4px;" [style.background-color]="colors[j]">{{imenaKat}}</div>
+                    </div>
+                </div>
+                  <!-- <p class="opis" style="color:#008f8f; font-weight: bold;">{{item_counts[categories.indexOf(cat)]}}</p> -->
+              </div>
+              <!-- <div *ngFor="let shopitem of shopItems | myfilter:{category:cat,itemTitle:query} " class="flex">
+                  
+                  <div class="flex shop-item">
+                      <img id="myimage" src="{{root_url}}{{shopitem.imageUrl}}" >
+                      <div class="flex column" style="margin-left:15px;">
+                          <div>
+                              <h3 class="biggest">{{shopitem.itemTitle}}</h3>
+                          </div>
+                          <div><span class="opis">{{shopitem.smallDescription}}</span></div>
+                          <div><span class="price">Cena: {{shopitem.price}} </span></div>
+                          <div><span class="small">Na stanju: {{shopitem.suppliesLeft}}</span></div>
+                          <div class="edit"><a (click)="previewItem(shopitem)">preview</a><a (click)="deleteItem(shopitem)">delete</a></div>
+                      </div>
+                  </div>
+              </div> -->
+          </div>
+      </div>
+      <div class="pagination-container">
+          <div class="pagination">
+              <div id="first" class="pag-item" (click)="navigate($event,'first')">First</div>
+              <div id="previous" class="pag-item" (click)="navigate($event,'previous')">Previous</div>
+              <div id="current" class="pag-item" >{{page_num}}</div>
+              
+              <div id="next" class="pag-item" (click)="navigate($event,'next')">Next</div>
+              <div id="last" class="pag-item" (click)="navigate($event,'last')">Last</div>    
+          </div>
+      </div>

@@ -1,0 +1,94 @@
+<div>
+    <form  #myForm="ngForm" (submit)="createItem(myForm)">
+        <div class="form-header">
+            <h2 style="color:#008f8f;border-bottom:1px solid #dadada;">Dodaj novi item</h2>
+        </div>
+        <div class="input-control">
+            <label for="itemTitle">Title: </label>
+            <input type="text" name="itemTitle" id="itemTitle" ngModel>
+        </div>
+        <div class="input-control" *ngIf="valid_title.length>0">
+            <label></label>
+            <!-- <input type="text" name="itemTitle" id="itemTitle" ngModel (change)="onChange($event)"> -->
+            <div class="err-text">{{valid_title}}</div>
+        </div>
+
+        <div class="input-control">
+            <label for="smallDescription">Small description: </label>
+            <input type="text" name="smallDescription" id="smallDescription" ngModel>
+        </div>
+        <div class="input-control" *ngIf="valid_sdc.length>0">
+            <label></label>
+            <!-- <input type="text" name="itemTitle" id="itemTitle" ngModel (change)="onChange($event)"> -->
+            <div class="err-text">{{valid_sdc}}</div>
+        </div>
+        
+        <div class="input-control">
+            <label for="price">Price: </label>
+            <input type="text" name="price" id="price" ngModel>
+        </div>
+        <div class="input-control" *ngIf="valid_price.length>0">
+            <label></label>
+            <!-- <input type="text" name="itemTitle" id="itemTitle" ngModel (change)="onChange($event)"> -->
+            <div class="err-text">{{valid_price}}</div>
+        </div>
+
+        <div class="input-control">
+            <label for="suppliesLeft">Quantity: </label>
+            <input type="number" name="suppliesLeft" id="suppliesLeft" min="1" value="1" max="50" ngModel>
+        </div>
+        <div class="input-control" *ngIf="valid_quantity.length>0">
+            <label></label>
+            <!-- <input type="text" name="itemTitle" id="itemTitle" ngModel (change)="onChange($event)"> -->
+            <div class="err-text">{{valid_quantity}}</div>
+        </div>
+
+        <div class="input-control" *ngIf="categories.length!=0">
+            <label for="category">Kategorija:</label>
+            <select  ngModel name="category" id="category">
+                <option *ngFor="let cat of categories" value="{{cat}}">{{cat}}</option>
+            </select>
+        </div>
+        <div class="input-control" *ngIf="valid_kategorija.length>0">
+            <label></label>
+            <!-- <input type="text" name="itemTitle" id="itemTitle" ngModel (change)="onChange($event)"> -->
+            <div class="err-text">{{valid_kategorija}}</div>
+        </div>
+
+        <div class="input-control" *ngIf="categories.length==0">
+            <p style="color:#cc6a6a;">Ne postoji nijedna kategorija. Da bi ste napravili item, morate prvo napraviti kategoriju.</p>
+        </div>
+
+        <div class="input-control">
+            <label for="imageName">Naziv slike: </label>
+            <input type="text" name="imageName" id="imageName" ngModel>
+        </div>
+        <div class="input-control" *ngIf="valid_naziv_slike.length>0">
+            <label></label>
+            <!-- <input type="text" name="itemTitle" id="itemTitle" ngModel (change)="onChange($event)"> -->
+            <div class="err-text">{{valid_naziv_slike}}</div>
+        </div>
+
+        <div class="input-control">
+            <label for="image">Slika proizvoda: </label>
+            <input type="file" name="image" id="image" accept="image/png" ngModel (change)="onSelectFile($event)">
+        </div>
+        <div class="input-control" *ngIf="valid_slika.length>0">
+            <label></label>
+            <!-- <input type="text" name="itemTitle" id="itemTitle" ngModel (change)="onChange($event)"> -->
+            <div class="err-text">{{valid_slika}}</div>
+        </div>
+
+        <div class="input-control">
+            <label for="description">Description: </label>
+            <textarea ngModel name="description" id="description"></textarea>
+        </div>  
+        <div class="input-control" *ngIf="valid_dc.length>0">
+            <label></label>
+            <!-- <input type="text" name="itemTitle" id="itemTitle" ngModel (change)="onChange($event)"> -->
+            <div class="err-text">{{valid_dc}}</div>
+        </div>
+        
+        <input type="submit" value="Dodaj" class="btn-fill" id="save"> <a class="btn-no-background" style="cursor: pointer;" (click)="goBack()">Cancel</a>
+    </form>
+</div>

@@ -1,0 +1,91 @@
+<div class="overlay">
+    <!-- LOGN IN FORM by Omar Dsoky -->
+    <form>
+       <!--   con = Container  for items in the form-->
+       <div class="con">
+       <!--     Start  header Content  -->
+       <header class="head-form">
+          <h2>Register</h2>
+          <!--     A welcome message or an explanation of the login form -->
+          <p>Enter all neccesary info to register.</p>
+       </header>
+       <!--     End  header Content  -->
+       <br>
+       <div class="field-set">
+         
+          <!--   user name -->
+             <span class="input-item">
+               <!-- <i class="fa fa-user-circle"></i> -->
+               <fa-icon [icon]="faUserCircle" ></fa-icon>
+             </span>
+             <input type="text"  class="form-input" id="txt-input"  placeholder="@UserName"  [(ngModel)]="uname"  name="uname" required>
+             
+          <br>
+          <div *ngIf="uname_message">
+            <span class="input-item" style="background-color: #ffe0e0;padding: 15px 0px 16px 9px;" >
+               <!-- <i class="fa fa-user-circle"></i> -->
+            </span>
+            <div  class="form-input" id="txt-input"  style="width:265px;display:inline-block;background-color: #ffe0e0;color:#ff0000">{{uname_message}}</div>
+            <br>
+         </div>
+            <span class="input-item">
+                <!-- <i class="fa fa-user-circle"></i> -->
+                <fa-icon [icon]="faAt" ></fa-icon>
+            </span>
+            <!--   user name Input-->
+            <input class="form-input" id="txt-input-2" type="email" placeholder="@email" [(ngModel)]="e_mail"   name="e_mail" required>
+          <br>
+          <div *ngIf="email_message">
+            <span class="input-item" style="background-color: #ffe0e0;padding: 15px 0px 16px 9px;" >
+              <!-- <i class="fa fa-user-circle"></i> -->
+            </span>
+            <div  class="form-input" id="txt-input"  style="width:265px;display:inline-block;background-color: #ffe0e0;color:#ff0000">{{email_message}}</div>
+            <br>  
+         </div>
+           
+          <span class="input-item">
+            <!-- <i class="fa fa-key"></i> -->
+            <fa-icon [icon]="faKey" ></fa-icon>
+           </span>
+          <!--   Password Input-->
+          <input class="form-input" type="password" style="width:250px;" placeholder="Password" id="pwd" [(ngModel)]="pw"  name="pw" required>
+         
+    <!--      Show/hide password  -->
+        
+         <div *ngIf="password_message">
+            <span class="input-item" style="background-color: #ffe0e0;padding: 15px 0px 16px 9px;" >
+              <!-- <i class="fa fa-user-circle"></i> -->
+            </span>
+            <div  class="form-input" id="txt-input"  style="width:265px;display:inline-block;background-color: #ffe0e0;color:#ff0000;">{{password_message}}</div>
+            <br>  
+         </div>
+         
+          <br>
+    <!--        buttons -->
+    <!--      button LogIn -->
+          <button class="log-in" (click)="register($event)"> Register </button><br>
+          <div *ngIf="backend_message">
+            <div  class="form-input" id="txt-input"  style="width:280px;display:inline-block;background-color: #ffe0e0;color:#ff0000;border-radius:5px;">{{backend_message}}</div>
+            <br>  
+         </div>
+       </div>
+      
+    <!--   other buttons -->
+       <div class="other">
+    <!--      Forgot Password button-->
+          <p class="special btn submits frgt-pass">Have an account?</p>
+    <!--     Sign Up button -->
+          <button class="btn submits sign-up" (click)="relocateToSignIn()">Sign in 
+    <!--         Sign Up font icon -->
+          <!-- <i class="fa fa-user-plus" aria-hidden="true"></i> -->
+          <fa-icon [icon]="faUser" ></fa-icon>
+          </button>
+    <!--      End Other the Division -->
+       </div>
+         
+    <!--   End Conrainer  -->
+      </div>
+      
+      <!-- End Form -->
+    </form>
+    </div>

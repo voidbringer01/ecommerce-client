@@ -1,0 +1,129 @@
+.container{
+    width:100%;
+    display: flex;
+    flex-direction: column;
+}
+.img{
+    width:100%;
+    height:auto;
+}
+
+.welcome{
+    width:100%;
+    display: flex;
+    flex-direction: row;
+}
+.col-8{
+    width:66.66%;
+}
+.flex-middle{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+.btn-border-no-background{
+    background-color: #008f8f;
+    border:0;
+    color:#fafafa;
+    padding:5px 11px;
+    border-radius:3px;
+}
+.btn-border-no-background:focus{
+    outline:0;
+}.btn-border-no-background:active{
+    outline:0;
+}
+.pricing{
+    display:flex;
+    padding-bottom:20px;
+}
+.columns{
+    width:33.33%;
+    padding:8px;
+}
+.price{
+    list-style-type: none;
+    border:1px solid #008f8f;
+    margin:0;
+    padding:0;
+    
+}
+
+.price li{
+    background-color:#fafafa;
+    border-bottom:1px solid #008f8f;
+    padding:20px;
+    text-align: center;
+}
+.hot{
+    border:2px solid #008f8f;
+}
+.price li.first{
+    background-color: #bfffff;
+}
+
+.price li.special{
+    background-color: #008f8f;
+    color:#fafafa;
+}
+
+.info-about-pricing{
+    text-align:center;
+    padding-bottom:20px;
+}
+
+a{
+    color:#008f8f;
+}
+
+
+@media only screen and (max-width: 600px) {
+    /* phones */
+   
+    .welcome{
+        flex-direction: column;
+    }
+    .flex-middle{
+        box-sizing: border-box;
+        padding:10px;
+        width: 100%;
+    }
+    .pricing{
+        flex-wrap: wrap;
+    }
+    .columns{
+        width:100%;
+    }
+    .img{
+        width:100%;
+        height:auto;
+    }
+}
+:host{
+    flex:1;
+    width:80%;
+    margin:0 auto;
+    box-sizing: border-box;
+}
+@media only screen and (min-width: 600px) and (max-width:800px) {
+    /* phones */
+    .col-8  {
+        width:100%;
+    }
+    .welcome{
+        flex-direction: column;
+    }
+    .flex-middle{
+        box-sizing: border-box;
+        padding:10px;
+        width: 100%;
+    }
+    .pricing{
+        flex-wrap: wrap;
+    }
+    .columns{
+        width:100%;
+    }
+   }

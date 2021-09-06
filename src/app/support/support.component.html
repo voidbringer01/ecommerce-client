@@ -1,0 +1,115 @@
+   
+    <div style="display:flex;flex-direction: column;">
+        <div *ngIf="user">
+            <div>
+                <h1 style="text-align: center;color:#008f8f">Support</h1>
+                <div class="loader" *ngIf="!loaded"></div>
+                <div>
+                    <form (submit)="submitTicket($event)">
+                        <div class="form-header">
+                            <h2 style="color:#008f8f;border-bottom:1px solid #dadada;">Submit ticket</h2>
+                        </div>
+
+                        <div class="input-control">
+                            <label for="itemTitle">Title: </label>
+                            <input type="text" name="itemTitle" id="itemTitle" ngModel (change)="onChange($event)">
+                        </div>
+                        <div class="input-control" *ngIf="valid_title.length>0">
+                            <label></label>
+                            <!-- <input type="text" name="itemTitle" id="itemTitle" ngModel (change)="onChange($event)"> -->
+                            <div class="err-text">{{valid_title}}</div>
+                        </div>
+
+                        <div class="input-control">
+                            <label for="description">Description: </label>
+                            <textarea ngModel name="description" id="description" (change)="onChange($event)"></textarea>
+                        </div>  
+                        <div class="input-control" *ngIf="valid_dc.length>0">
+                            <label></label>
+                            <!-- <input type="text" name="itemTitle" id="itemTitle" ngModel (change)="onChange($event)"> -->
+                            <div class="err-text">{{valid_dc}}</div>
+                        </div>
+                        <input type="submit" value="Submit ticket" class="btn-fill" id="save" style="cursor: pointer;"  > 
+                        <div class="input-control" style="width:100%;" *ngIf="success_msg?.length>0">
+                            <!-- <input type="text" name="itemTitle" id="itemTitle" ngModel (change)="onChange($event)"> -->
+                            <div class="success-text" style="width:100%;">{{success_msg}}</div>
+                        </div>
+                    </form>
+                </div>
+        </div>
+    </div>
+    <div *ngIf="!user">
+        <h2 style="text-align: center;color:#008f8f">To submit issues, u have to be logged in.</h2>
+    </div>
+    
+    <div *ngIf="user">
+        <div style="flex:1;border-bottom:1px solid #dadada;margin-bottom:15px;">
+            <div class="form-header">
+                <h2 style="color:#008f8f;border-bottom:1px solid #dadada;">Your previous tickets</h2>
+            </div>
+            <div *ngIf="tickets?.length == 0">
+                <p style="text-align: center;color:#6a6a6a;font-style: italic;">You didnt create any tickets yet.</p>
+            </div>
+            <div *ngFor="let ticket of tickets  " class="flex" style="flex-direction: column;">
+                <div class="shop-item" style="position: relative;">
+
+                    <p style="color:#6a6a6a ;padding:0;"><span [ngClass]="ticket.state=='pending'?'yellow':'green'">{{ticket?.state}}</span> {{ticket?.issue}} - {{ticket?.data}}  </p>
+                    <p style="color:#6a6a6a;padding:0;" *ngIf="ticket.answer">{{ticket?.answer}}</p>
+
+                    <span class="small">Ticket id: {{ticket?._id}}</span>
+                    <!-- <h2 style="color:#008f8f;text-align: left;text-transform: capitalize; cursor:pointer; text-decoration: underline;" (click)="visitCategory(cat)">{{cat}}</h2> -->
+                    <!-- <p class="opis" style="color:#008f8f; font-weight: bold;">{{item_counts[categories.indexOf(cat)]}}</p> -->
+                </div>    
+            </div>
+            <div class="pagination-container" >
+                <div class="pagination">
+                    <div id="first" class="pag-item" (click)="navigate($event,'first')">First</div>
+                    <div id="previous" class="pag-item" (click)="navigate($event,'previous')">Previous</div>
+                    <div id="current" class="pag-item" >{{page_num}}</div>
+                    
+                    <div id="next" class="pag-item" (click)="navigate($event,'next')">Next</div>
+                    <div id="last" class="pag-item" (click)="navigate($event,'last')">Last</div>    
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    {{status_of_app}}
+    <div class="application" style="margin-top:25px;" *ngIf="status_of_app.length==0 ">
+        Wanna work for us? Submit your application by clicking the button bellow.<br>
+        <button class="btn-fill" (click)="apply()" style="cursor: pointer;">Apply</button>
+    </div>
+    <div class="application" style="margin-top:25px;" *ngIf="status_of_app.length>0">
+        <p *ngIf="status_of_app=='pending'" style="color:#cc0;text-align: center;">We are still processing your application.</p>
+        <p *ngIf="status_of_app=='accepted'" style="color:#008f8f">Your application has been accepted.</p>
+        <p *ngIf="status_of_app=='decclined'" style="color:tomato">Your application has been declined.</p>
+    </div>
+    </div>
+    <!-- <div *ngIf="loaded">
+        <div *ngFor="let cat of categories">
+            <h2 style="color:#008f8f;text-align: center;text-transform: capitalize; ">Kategorija - {{cat}}</h2>
+            <div *ngIf="(shopItems | myfilter:{category:cat,itemTitle:query}).length==0" style="text-align: center;font-style: italic;color:#6a6a6a;">
+                This category doesn't have any items.
+            </div>
+            <div *ngIf="shopItems.length>0">    
+                <div *ngFor="let shopitem of shopItems | myfilter:{category:cat,itemTitle:query} " class="flex">
+
+                    <div class="flex shop-item">
+                        <img id="myimage" src="{{root_url}}{{shopitem.imageUrl}}" >
+                        <div class="flex column" style="margin-left:15px;">
+                            <div>
+                                <h3 class="biggest" style="text-decoration: underline; cursor:pointer;" (click)="previewItem(shopitem)">{{shopitem.itemTitle}}</h3>
+                            </div>
+                            <div><span class="opis">{{shopitem.smallDescription}}</span></div>
+                            <div><span class="price">Cena: {{shopitem.price}} </span></div>
+                            <div><span class="small">Na stanju: {{shopitem.suppliesLeft}}</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+   
+    

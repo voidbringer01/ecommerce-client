@@ -1,0 +1,139 @@
+.input-control{
+    display:flex;
+    padding:15px 8px;
+}
+
+form{
+    margin-top:30px;
+    border-bottom:1px solid #dadada;
+    padding-bottom:15px;
+}
+
+.input-control label{
+    width:15%;
+    font-size:18px;
+    color:#6a6a6a;
+}
+.input-control .err-text{
+    border:1px solid #ff0000;
+    background-color: #ffe0e0;
+    padding:4px 9px;
+    color:#ff0000;
+    width:200px;
+}
+
+.input-control input{
+    border:1px solid #cacaca;
+    background-color: #fafafa;
+    padding:4px 9px;
+    color:#6a6a6a;
+}
+
+.input-control input:focus{
+    outline: none;
+    border:1px solid #008f8f;
+    color:#008f8f;
+}
+
+.input-control input:active{
+    outline: none;
+    border:1px solid #008f8f;
+    color:#008f8f;
+}
+
+
+.input-control textarea{
+    border:1px solid #cacaca;
+    background-color: #fafafa;
+    padding:4px 9px;
+    color:#6a6a6a;
+}
+
+.input-control textarea:focus{
+    outline: none;
+    border:1px solid #008f8f;
+    color:#008f8f;
+}
+
+.input-control textarea:active{
+    outline: none;
+    border:1px solid #008f8f;
+    color:#008f8f;
+}
+
+.input-control select{
+    border:1px solid #cacaca;
+    background-color: #fafafa;
+    padding:4px 9px;
+    color:#6a6a6a;
+}
+
+.input-control select:focus{
+    outline: none;
+    border:1px solid #008f8f;
+    color:#008f8f;
+}
+
+.input-control select:active{
+    outline: none;
+    border:1px solid #008f8f;
+    color:#008f8f;
+}
+
+.btn-fill{
+    background-color: #008f8f;
+    border:1px solid #dadada;
+    color:#fafafa;
+    padding:6px 12px;
+    border-radius:4px;
+}
+.btn-fill:focus{
+    outline:0;
+}.btn-fill:active{
+    outline:0;
+}
+
+.btn-no-background{
+    display:inline-block;
+    background-color: transparent;
+    border:0;
+    color:#008f8f;
+    padding:6px 12px;
+    border-radius:4px;
+}
+.btn-no-background:focus{
+    outline:0;
+}.btn-no-background:active{
+    outline:0;
+}
+:host{
+    flex:1;
+    width:80%;
+    margin:0 auto;
+    box-sizing: border-box;
+}
+
+.btn-no-background{}
+
+@media screen and (min-device-width : 300px) and (max-device-width : 894px)  
+{ 
+    .input-control{
+        flex-wrap: wrap;
+    }
+    .input-control label{
+        width:100%;
+    }
+    .input-control input{
+        width:100% !important;
+    }
+    .input-control .err-text{
+        width:100%;
+    }
+    .input-control select{
+        width:100% !important;
+    }
+    
+    .input-control textarea{
+        width:100% !important;
+    }
+}  
